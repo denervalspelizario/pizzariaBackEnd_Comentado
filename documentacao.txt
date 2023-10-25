@@ -1,0 +1,104 @@
+-- criar projeto
+-- bibliotecas instaladas
+
+** yarn add express
+** yarn add typescript -D
+** yarn add @types/express -D
+** yarn tsc --init
+** yarn add cors
+** yarn add @types/cors -D
+** yarn add bcryptjs
+** yarn add @types/bcryptjs -D
+** yarn add jsonwebtoken
+** yarn add @types/jsonwebtoken -D
+** yarn add dotenv
+** yarn add multer
+** yarn add @types/multer -D
+
+
+-- criar pasta src
+-- criar arquivos server.ts e routes.ts
+
+-- para rodar o typescript comando
+** yarn add ts-node-dev -D
+
+-- adicionar no script no package.json comando 
+** "dev": "ts-node-dev --transpile-only src/server.ts"
+-- em tsconfig altere "strict": true  para  "strict": false
+
+
+TRATANDO ERROS
+-- instalar biblioteca para tratar ERROS
+** yarn add express-async-errors 
+   Obs sempre import-la embaixo dos metodos do express SENÂO da erro
+-- Neste caso seria criado pasta Error>AppError.ts
+-- depois importar server.ts
+
+-- crie o banco de dados
+-- instalar o prima na aplicação
+** yarn add prisma
+** yarn add @prisma/client
+** npx prisma init
+
+- irá gerar o arquivo prisma e .env nele adicione os dados do banco de dados
+-- em src crie prisma>index.ts  e adicione as configs prismaClient
+
+CRIAR MIGRATIONS 
+No Prisma, as migrações (migrations) referem-se a um conjunto de operações que permitem a você 
+modificar o esquema de banco de dados de forma controlada e rastreável. 
+
+
+-- hora de modelar os dados em schema.prisma  adicione a modelagem de dados
+   e depois crie a migration com comando
+** yarn prisma migrate dev   *OBS pedira o nome da migration que vc pode escolher neste caso sera create_table_users
+   teoricamente irá criar a prima>migrations>create_table_users
+   Obs verificar la no beekeeper se o _prisma_migrations foi criado
+-- confirmado então crie as outras schemas no schema.prisma, neste projeto foram criados 2 migrations
+
+ESTRUTURANDO PASTAS
+-- crie em src pastas controller e services
+    a estrutura fica assim 
+    crontrollers = controladores
+    services = logica e requisicoes que os controladores serão usados com o bd e validações
+
+-- depois de criar a rotas de login e cadastro tanto service quanto controller 
+-- criar middleware que usuario tem que sempre imformar um token para rota    
+** Obs na middleware sera usando uma tipagem para usuario_id, 
+   essa tipagem fica em src/@types/index.d.ts tem que ir em tsconfig e adicionar "typeRoots": ["./src/@types"],  
+
+-- sempre seguir essa regra cria o service, cria controller depois adiciona na rota 
+SEQUENCIA CRIAÇÂO
+-- Rotas controllers e services user
+-- Rotas controllers e services category
+-- Rotas controllers e services product
+
+** observacao em product o armazenamento será feito dentro do prorpio app pois são poucas imagens MAS se quiser usar a opçao
+   da cubos é possivel ambbos os casos a biblioteca multer será usada
+   passo a passo do upload  em src>config  configurações do multer que será responsavel por fazer upload
+   em tmp(fora de src) será onde sera adicionado imagem 
+   config>multer será responsável por configurar o upload de imagem que será repassado  
+   -- atentar as configs em rotas cadastro de produto e CreateProductController e CreateProductService
+      e atentar para a server.ts a configuraçao para acessar essas imagens criadas na pasta tmp
+      
+        
+ FUNCIONALIDADES DA API
+
+  CADASTRAR UM NOVO USUARIO
+  LOGAR UM USUARIO
+  VERIFICAR AUTENTICAÇÃO PARA ROTAS PRIVADAS
+  MOSTRAR DETALHES DO USUARIO LOGADO
+  CRIAR E LISTAR CATEGORIAS
+  CRIAR PRODUTOS E LISTAR PRODUTOS DE UMA CATEGORIA ESPECIFICA
+  ABRIR UMA MESA(ORDER) E PODE FECHAR ELA
+  ADICIONAR ITENS E UMA MESA E TAMBEM PODER RETIRAR OS ITENS
+  ENVIAR(ORDER) RETIRAR DO RASCUNHO
+  LISTAR TODOS OS PEDIDOS QUE NÃO ESTÃO EM RASCUNHO(DRAFT)
+  PODE ACESSAR TODOS OS DETALHES DE UMA MESA COM PEDIDOS DETALHES
+  CONCLUIR O PEDIDO
+
+
+
+
+
+    
+
